@@ -29,6 +29,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
+    compileSdkVersion 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -37,11 +38,11 @@ android {
 
     defaultConfig {
         applicationId "com.example.flutter_firebase"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        multiDexEnabled true
+        multiDexEnabled true  // TODO: FACEBOOK
     }
 
     buildTypes {
@@ -49,10 +50,19 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+            shrinkResources false
+            minifyEnabled false
         }
     }
 }
 
 flutter {
     source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation platform('com.google.firebase:firebase-bom:31.0.2')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 }
